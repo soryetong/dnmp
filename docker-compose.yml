@@ -1,0 +1,241 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ${PROJECT_DOCUMENT_ROOT}/:/var/www/html/
+      - ./config/nginx/conf.d:/etc/nginx/conf.d/
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./logs/nginx/:/var/log/nginx/
+    privileged: true
+    ports:
+      - 80:80
+      - 44:443
+      - 8081:8081
+      - 8082:8082
+
+  ##############################################################################################
+  #####################                                                      ###################
+  #####################                       PHP                            ###################
+  #####################                                                      ###################
+  ##############################################################################################
+  php5.6:
+    build: ./config/php56
+    container_name: php5.6
+    platform: ${CONTAINER_PLATFORM}
+    volumes:
+      - ${PROJECT_DOCUMENT_ROOT}/:/var/www/html
+      - ./config/php56/php.ini:/usr/local/etc/php/php.ini
+      - ./config/php56/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./logs/php56/:/var/log/php-fpm/
+    privileged: true
+    stdin_open: true
+    ports:
+      - 9056:9000
+    
+  php7.0:
+    build: ./config/php70
+    container_name: php7.0
+    platform: ${CONTAINER_PLATFORM}
+    volumes:
+      - ${PROJECT_DOCUMENT_ROOT}/:/var/www/html
+      - ./config/php70/php.ini:/usr/local/etc/php/php.ini
+      - ./config/php70/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./logs/php70/:/var/log/php-fpm/
+    privileged: true
+    stdin_open: true
+    ports:
+      - 9070:9000
+
+  php7.1:
+    build: ./config/php71
+    container_name: php7.1
+    platform: ${CONTAINER_PLATFORM}
+    volumes:
+      - ${PROJECT_DOCUMENT_ROOT}/:/var/www/html
+      - ./config/php71/php.ini:/usr/local/etc/php/php.ini
+      - ./config/php71/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./logs/php71/:/var/log/php-fpm/
+    privileged: true
+    stdin_open: true
+    ports:
+      - 9071:9000
+
+  php7.2:
+    build: ./config/php72
+    container_name: php7.2
+    platform: ${CONTAINER_PLATFORM}
+    volumes:
+      - ${PROJECT_DOCUMENT_ROOT}/:/var/www/html
+      - ./config/php72/php.ini:/usr/local/etc/php/php.ini
+      - ./config/php72/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./logs/php72/:/var/log/php-fpm/
+    privileged: true
+    stdin_open: true
+    ports:
+      - 9072:9000
+
+  php7.3:
+    build: ./config/php73
+    container_name: php7.3
+    platform: ${CONTAINER_PLATFORM}
+    volumes:
+      - ${PROJECT_DOCUMENT_ROOT}/:/var/www/html
+      - ./config/php73/php.ini:/usr/local/etc/php/php.ini
+      - ./config/php73/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./logs/php73/:/var/log/php-fpm/
+    privileged: true
+    stdin_open: true
+    ports:
+      - 9073:9000
+
+  php7.4:
+    build: ./config/php74
+    container_name: php7.4
+    platform: ${CONTAINER_PLATFORM}
+    restart: unless-stopped
+    volumes:
+      - ${PROJECT_DOCUMENT_ROOT}/:/var/www/html
+      - ./config/php74/php.ini:/usr/local/etc/php/php.ini
+      - ./config/php74/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./logs/php74/:/var/log/php-fpm/
+    privileged: true
+    stdin_open: true
+    ports:
+      - 9074:9000
+
+  php8.0:
+    build: ./config/php80
+    container_name: php8.0
+    platform: ${CONTAINER_PLATFORM}
+    volumes:
+      - ${PROJECT_DOCUMENT_ROOT}/:/var/www/html
+      - ./config/php80/php.ini:/usr/local/etc/php/php.ini
+      - ./config/php80/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./logs/php80/:/var/log/php-fpm/
+    privileged: true
+    stdin_open: true
+    ports:
+      - 9080:9000
+
+  php8.1:
+    build: ./config/php81
+    container_name: php8.1
+    platform: ${CONTAINER_PLATFORM}
+    volumes:
+      - ${PROJECT_DOCUMENT_ROOT}/:/var/www/html
+      - ./config/php81/php.ini:/usr/local/etc/php/php.ini
+      - ./config/php81/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./logs/php81/:/var/log/php-fpm/
+    privileged: true
+    stdin_open: true
+    ports:
+      - 9081:9000
+
+  php8.2:
+    build: ./config/php82
+    container_name: php8.2
+    platform: ${CONTAINER_PLATFORM}
+    volumes:
+      - ${PROJECT_DOCUMENT_ROOT}/:/var/www/html
+      - ./config/php82/php.ini:/usr/local/etc/php/php.ini
+      - ./config/php82/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./logs/php82/:/var/log/php-fpm/
+    privileged: true
+    stdin_open: true
+    ports:
+      - 9082:9000
+
+  php8.3:
+    build: ./config/php83
+    container_name: php8.3
+    platform: ${CONTAINER_PLATFORM}
+    volumes:
+      - ${PROJECT_DOCUMENT_ROOT}/:/var/www/html
+      - ./config/php83/php.ini:/usr/local/etc/php/php.ini
+      - ./config/php83/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./logs/php83/:/var/log/php-fpm/
+    privileged: true
+    stdin_open: true
+    ports:
+      - 9083:9000
+
+  ##############################################################################################
+  #####################                                                      ###################
+  #####################                       MySQL                          ###################
+  #####################                                                      ###################
+  ##############################################################################################
+  mysql5.6:
+    image: mysql:5.6
+    container_name: mysql5.6
+    platform: ${CONTAINER_PLATFORM}
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Shanghai
+      - LANG=en_US.UTF-8
+      - MYSQL_ROOT_HOST='%'
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./config/mysql/my56.cnf:/etc/my.cnf
+      - ./data/mysql/5.6:/var/lib/mysql
+      - ./logs/mysql/5.6:/var/log/mysql
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    ports:
+      - 33056:3306
+  
+  mysql5.7:
+    image: mysql:5.7
+    container_name: mysql5.7
+    platform: ${CONTAINER_PLATFORM}
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Shanghai
+      - LANG=en_US.UTF-8
+      - MYSQL_ROOT_HOST='%'
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./config/mysql/my57.cnf:/etc/my.cnf
+      - ./data/mysql/5.7:/var/lib/mysql
+      - ./logs/mysql/5.7:/var/log/mysql
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    ports:
+      - 33057:3306
+
+  mysql8.0:
+    image: mysql:8.0
+    container_name: mysql8.0
+    platform: ${CONTAINER_PLATFORM}
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Shanghai
+      - LANG=en_US.UTF-8
+      - MYSQL_ROOT_HOST='%'
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./config/mysql/my80.cnf:/etc/my.cnf
+      - ./data/mysql/8.0:/var/lib/mysql
+      - ./logs/mysql/8.0:/var/log/mysql
+      - ./config/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    ports:
+      - 33080:3306

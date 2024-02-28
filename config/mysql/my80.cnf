@@ -1,0 +1,110 @@
+[client]
+port = 3306
+socket = /var/run/mysqld/mysqld.sock
+
+
+[mysqld]
+
+####################################### 服务端配置 #######################################
+user = mysql
+datadir = /var/lib/mysql
+skip-name-resolve
+
+# 默认字符集
+character-set-server = utf8mb4
+
+# 字符集对应一些排序等规则注意要和character-set-server对应
+collation-server = utf8mb4_general_ci
+
+
+# 在MySQL暂时停止响应新请求之前的短时间内多少个请求可以被存在堆栈中
+# 官方建议 back_log = 50 + (max_connections / 5),封顶数为65535,默认值= max_connections
+back_log = 110
+
+# 最大连接数
+max_connections = 300     
+
+# 最大错误连接数
+max_connect_errors = 50    
+
+# 为所有线程打开的表的数量
+table_open_cache = 600                              
+
+# SQL数据包发送的大小，如果有BLOB对象建议修改成1G
+max_allowed_packet = 128M
+
+# 内部内存临时表的最大值
+tmp_table_size = 64M
+max_heap_table_size = 128M
+
+# 对MyISAM表起作用 读取优化
+read_rnd_buffer_size = 16M
+
+# order by 或group by 时用到
+sort_buffer_size = 16M
+
+# inner left right join时用到
+join_buffer_size = 16M
+
+# 控制线程缓存的大小
+thread_cache_size = 16
+
+# MySQL连接闲置超过一定时间后(单位：秒)将会被强行关闭，需要与interactive_timeout同时配置
+wait_timeout = 31536000
+interactive_timeout = 31536000
+
+# 是否对sql语句大小写敏感，1表示不敏感
+lower_case_table_names = 1
+
+# 一般设置物理存储的 60% ~ 70%
+innodb_buffer_pool_size = 1024M
+
+# InnoDB 存储引擎中并发线程的数量。它决定了 InnoDB 在执行查询和处理事务时可以使用的最大并发线程数量
+innodb_thread_concurrency = 16
+
+# InnoDB 存储引擎内部用于缓存事务日志数据的缓冲区大小
+innodb_log_buffer_size = 16M
+
+
+
+####################################### 慢查询配置 #######################################
+# 是否启用慢查询日志，1为启用，0为禁用  
+slow_query_log = 1
+
+# 慢查询执行的秒数，必须达到此值可被记录
+long_query_time = 6
+
+
+# 指定慢查询日志文件的路径和名字
+slow_query_log_file = /var/log/mysql/slow.log
+
+# 将没有使用索引的语句记录到慢查询日志  
+log_queries_not_using_indexes = 0
+ 
+# 设定每分钟记录到日志的未使用索引的语句数目，超过这个数目后只记录语句数量和花费的总时间  
+log_throttle_queries_not_using_indexes = 60
+ 
+# 对于查询扫描行数小于此参数的SQL，将不会记录到慢查询日志中
+min_examined_row_limit = 5000
+ 
+# 记录执行缓慢的管理SQL，如alter table,analyze table, check table, create index, drop index, optimize table, repair table等。  
+log_slow_admin_statements = 0
+ 
+#作为从库时生效, 从库复制中如何有慢sql也将被记录
+#对于ROW格式binlog，不管执行时间有没有超过阈值，都不会写入到从库的慢查询日志
+log_slow_slave_statements = 1
+
+
+
+####################################### binlog配置 #######################################
+# 配置 MySQL replaction 需要定义，不要和 canal 的 slaveId 重复
+server_id=1                                    
+
+# 开启 binlog
+log-bin = mysql-bin    
+
+# binlog 记录内容的方式，记录被操作的每一行
+binlog_format = ROW
+
+# 日志保存的天数
+expire_logs_days = 7 
