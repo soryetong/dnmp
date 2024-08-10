@@ -16,7 +16,7 @@ DNMP是基于docker部署的Nginx、PHP、MySQL开发环境
 1. clone项目：
 
     ```bash
-    git clone https://github.com/tongpan11/dnmp.git
+    git clone https://github.com/soryetong/dnmp.git
     ```
 
 2. 数据配置
